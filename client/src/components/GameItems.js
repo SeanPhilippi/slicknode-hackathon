@@ -24,7 +24,7 @@ class GameItems extends React.Component {
     if (isHome) {
       buttons = (
         <span>
-          <button onClick={this.toggleHidden} className="btn btn-secondary">
+          <button onClick={this.toggleHidden} className="btn btn-secondary text-dark mb-1">
             Game Details
           </button>
           <button className="btn btn-primary">
@@ -34,7 +34,7 @@ class GameItems extends React.Component {
       );
     } else {
       buttons = (
-        <button onClick={this.toggleHidden} className="btn btn-secondary">
+        <button onClick={this.toggleHidden} className="btn btn-secondary text-dark">
           Game Details
         </button>
       );
@@ -52,7 +52,7 @@ class GameItems extends React.Component {
           </div>
           <div className="col-md-2 text-center">
             {buttons}
-            <img src={imgUrl} width={'100px'} style={{ marginTop: 15 }} />
+            <a href={imgUrl} target={"_blank"}><img src={imgUrl} width={'100px'} style={{ marginTop: 15 }} /></a>
           </div>
         </div>
       </div>

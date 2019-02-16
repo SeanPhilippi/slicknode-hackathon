@@ -35,26 +35,30 @@ export default class NavBar extends React.Component {
   users = [
     {
       name: 'Sean',
-      email: 'sean.philippi@gmail.com'
+      email: 'sean.philippi@gmail.com',
+      id: 'VXNlcjox'
     },
     {
       name: 'Zeke',
-      email: 'zgutier4@gmail.com'
+      email: 'zgutier4@gmail.com',
+      id: 'VXNlcjoy'
     },
     {
       name: 'Jake',
-      email: 'jake.waltrip@gmail.com'
+      email: 'jake.waltrip@gmail.com',
+      id: 'VXNlcjoz'
     },
     {
       name: 'Will',
-      email: 'chiefxcruz@gmail.com'
+      email: 'chiefxcruz@gmail.com',
+      id: 'VXNlcjo0'
     }
   ];
 
   options = this.users.map(user => {
     return (
       <DropdownItem>
-        <NavLink tag={Link} to={'/games/' + user.email}>{user.name}</NavLink>
+        <NavLink tag={Link} to={'/games/' + user.id}>{user.name}</NavLink>
       </DropdownItem>            
     )
   })
