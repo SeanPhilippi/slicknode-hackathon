@@ -54,7 +54,7 @@ export default class NavBar extends React.Component {
   options = this.users.map(user => {
     return (
       <DropdownItem>
-        <NavLink tag={Link} to={'/' + user.email}>{user.name}</NavLink>
+        <NavLink tag={Link} to={'/games/' + user.email}>{user.name}</NavLink>
       </DropdownItem>            
     )
   })

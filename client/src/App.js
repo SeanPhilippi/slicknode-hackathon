@@ -10,6 +10,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import NavBar from "./components/NavBar";
 
 // const client = new ApolloClient({
 //   uri: "http://localhost:5000/graphql"
@@ -24,19 +25,22 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <Router>
-          <div className="container">
-            <img
-              src={logo}
-              alt="PS3"
-              style={{
-                width: 300,
-                display: "block",
-                margin: "auto"
-              }}
-            />
-            <Route exact path="/" component={Home} />
-            <Route path="/games" component={Games} />
+          <div>
+            <NavBar />
+            <div className="container">
+              <img
+                src={logo}
+                alt="PS3"
+                style={{
+                  width: 300,
+                  display: "block",
+                  margin: "auto"
+                }}
+              />
+              <Route exact path="/" component={Home} />
+              <Route path="/games" component={Games} />
 
+            </div>
           </div>
         </Router>
       </ApolloProvider>
