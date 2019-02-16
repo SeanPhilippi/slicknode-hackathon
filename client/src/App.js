@@ -5,8 +5,12 @@ import "./App.css";
 import logo from "./logo.png";
 import Games from "./components/Games";
 
+// const client = new ApolloClient({
+//   uri: "http://localhost:5000/graphql"
+// });
+
 const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql"
+  uri: "https://slicknode-games-3331d560.us-east1.slicknode.com/"
 });
 
 class App extends Component {
