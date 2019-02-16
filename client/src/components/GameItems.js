@@ -14,10 +14,31 @@ class GameItems extends React.Component {
   render() {
     const { id, title, releaseDate, description, imgUrl, company } = this.props.single.node;
     const { isHidden } = this.state;
+    const { isHome } = this.props;
 
     const desc = <h4>{description}</h4>;
 
     console.log(this.props.single);
+
+    let buttons;
+    if (isHome) {
+      buttons = (
+        <span>
+          <button onClick={this.toggleHidden} className="btn btn-secondary">
+            Game Details
+          </button>
+          <button className="btn btn-primary">
+            Add to Collection
+          </button>
+        </span>
+      );
+    } else {
+      buttons = (
+        <button onClick={this.toggleHidden} className="btn btn-secondary">
+          Game Details
+        </button>
+      );
+    }
 
     return (
       <div className="card card-body mb-3">
@@ -30,9 +51,7 @@ class GameItems extends React.Component {
             {!isHidden && desc}
           </div>
           <div className="col-md-2 text-center">
-            <button onClick={this.toggleHidden} className="btn btn-secondary">
-              Game Details
-            </button>
+            {buttons}
             <img src={imgUrl} width={'100px'} style={{ marginTop: 15 }} />
           </div>
         </div>
