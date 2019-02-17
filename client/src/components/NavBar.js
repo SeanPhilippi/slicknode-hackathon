@@ -1,4 +1,6 @@
 import React from 'react';
+import logo from '../logo.png';
+
 import {
   Collapse,
   Navbar,
@@ -29,7 +31,7 @@ export default class NavBar extends React.Component {
   }
 
   style = {
-    width: '20%',
+    width: '15%',
   }
 
   users = [
@@ -67,7 +69,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/" className="mx-auto"><img style={this.style}src="/static/media/logo.8c54a486.png" alt=""/></NavbarBrand>
+          <NavbarBrand href="/" className="mx-auto"><img style={this.style} src={logo} alt="logo"/></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
