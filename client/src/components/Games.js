@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import GameItems from "./GameItems";
 import { withRouter } from 'react-router-dom';
+import gif from '../playstation.gif';
 
 // const GAME_QUERY = gql`
 //   {
@@ -15,6 +16,18 @@ import { withRouter } from 'react-router-dom';
 //     }
 //   }
 // `;
+
+const divFlex = {
+  display: 'flex',
+  justifyContent: 'center',
+  backgroundColor: '#145CB2',
+  padding: '0',
+  margin: '0'
+}
+
+const loadGif = {
+  width: '60%',
+}
 
 export class Games extends Component {
   render() {
@@ -51,7 +64,12 @@ export class Games extends Component {
       <Fragment>
         <Query query={GAME_QUERY}>
           {({ loading, error, data }) => {
-            if (loading) return <h4 className="text-center"> Loading... </h4>;
+            if (loading) return (
+              <div style={divFlex}>
+                <img style={loadGif} src={gif} alt=""/>
+                {/* <h4 className="text-center"> Loading... </h4> */}
+              </div>
+            );
             if (error) console.log(error);
             console.log(data);
             return (

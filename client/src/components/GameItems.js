@@ -1,5 +1,40 @@
 import React from "react";
-//var Linkify = require("react-linkify");
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
+
+class GameLightbox extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      photoIndex: 0,
+      isOpen: false,
+    };
+  }
+
+  render() {
+    const { isOpen } = this.state;
+    const { img } = this.props;
+    // const { imgUrl } = this.props.single.node;
+
+    return (
+      <div>
+        <img 
+          src={img} 
+          width={'100px'} 
+          style={{ marginTop: 15 }} 
+          type="button" onClick={() => this.setState({ isOpen: true })}
+        />
+        {isOpen && (
+          <Lightbox
+            mainSrc={img}
+            onCloseRequest={() => this.setState({ isOpen: false })}
+          />
+        )}
+      </div>
+    );
+  }
+}
 
 class GameItems extends React.Component {
   state = {
@@ -11,6 +46,7 @@ class GameItems extends React.Component {
       isHidden: !this.state.isHidden
     });
   };
+
   render() {
     const { id, title, releaseDate, description, imgUrl, company } = this.props.single.node;
     const { isHidden } = this.state;
@@ -52,7 +88,7 @@ class GameItems extends React.Component {
           </div>
           <div className="col-md-2 text-center">
             {buttons}
-            <a href={imgUrl} target={"_blank"}><img src={imgUrl} width={'100px'} style={{ marginTop: 15 }} /></a>
+              <GameLightbox img={imgUrl}/>
           </div>
         </div>
       </div>
