@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import "./App.css";
-import Games from "./components/Games";
-import Home from "./components/Home";
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
 import NavBar from "./components/NavBar";
+import Games from "./components/Games";
+import Home from "./components/Home";
 
 // const client = new ApolloClient({
 //   uri: "http://localhost:5000/graphql"

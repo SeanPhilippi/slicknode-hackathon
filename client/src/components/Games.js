@@ -5,7 +5,7 @@ import { Query } from "react-apollo";
 import { Alert } from "reactstrap";
 import GameItems from "./GameItems";
 import LoadingPage from './LoadingPage';
-
+import Footer from "./Footer";
 
 export class Games extends Component {
   state = { isAlertOpen: true };
@@ -77,6 +77,7 @@ export class Games extends Component {
                     <GameItems key={idx} index={idx} single={single} />
                   ))}
                 </div>
+                <Footer />
               </Fragment>
             );
           }}
