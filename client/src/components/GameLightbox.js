@@ -23,7 +23,9 @@ class GameLightbox extends React.Component {
           src={img}
           width={'100px'}
           style={{ marginTop: 15 }}
-          type="button" onClick={() => this.setState({ isOpen: true })}
+          type="button"
+          alt="video game"
+          onClick={() => this.setState({ isOpen: true })}
         />
         {isOpen && (
           <Lightbox
