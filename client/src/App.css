@@ -18,7 +18,7 @@ html, body, #root {
 .add-game-btn {
   background-color: rgb(43, 127, 226)!important;
   color: white!important;
-  margin: 0 5px 0 0;
+  margin: 0 15px 0 0;
 }
 
 .add-game-btn:hover,
