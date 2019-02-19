@@ -25,6 +25,16 @@ export default class NavBar extends React.Component {
 
   users = [
     {
+      name: 'Will',
+      email: 'chiefxcruz@gmail.com',
+      id: 'VXNlcjo0'
+    },
+    {
+      name: 'Jake',
+      email: 'jake.waltrip@gmail.com',
+      id: 'VXNlcjoz'
+    },
+    {
       name: 'Sean',
       email: 'sean.philippi@gmail.com',
       id: 'VXNlcjox'
@@ -33,16 +43,6 @@ export default class NavBar extends React.Component {
       name: 'Zeke',
       email: 'zgutier4@gmail.com',
       id: 'VXNlcjoy'
-    },
-    {
-      name: 'Jake',
-      email: 'jake.waltrip@gmail.com',
-      id: 'VXNlcjoz'
-    },
-    {
-      name: 'Will',
-      email: 'chiefxcruz@gmail.com',
-      id: 'VXNlcjo0'
     }
   ];
 
