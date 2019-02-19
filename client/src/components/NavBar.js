@@ -58,8 +58,8 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md" style={{ height: '100px' }}>
-          <NavbarBrand href="/" className="mx-auto" style={{ width: '200px' }}>
+        <Navbar color="light" light expand="md">
+          <NavbarBrand href="/" className="mr-auto" style={{ width: '200px' }}>
             <img src={PS3Logo} alt="logo" style={{ width: '80%' }}/>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />

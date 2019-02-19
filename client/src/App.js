@@ -9,7 +9,6 @@ import {
   Route
 } from 'react-router-dom'
 import NavBar from "./components/NavBar";
-import LoadingTest from "./components/LoadingPage";
 
 // const client = new ApolloClient({
 //   uri: "http://localhost:5000/graphql"
