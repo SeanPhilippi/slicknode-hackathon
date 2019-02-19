@@ -46,14 +46,14 @@ class GameItems extends React.Component {
         {(addGameToUser, { data }) => (
           <div className="card card-body mb-3">
             <div className="row">
-              <div className="col-md-9">
+              <div className="col-md-8 col-lg-9 col-xl-10">
                 <h1 className="ps-blue">
                   {this.props.index + 1}: {title}
                 </h1>
                 <h3 className="ps-blue-light">Release Date: {releaseDate} </h3>
                 {!isHidden && desc}
               </div>
-              <div className="col-md-3 text-center">
+              <div className="col-md-4 col-lg-3 col-xl-2 text-center">
                 { isHome ?
                   (
                     <span>
