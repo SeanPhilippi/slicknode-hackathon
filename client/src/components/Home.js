@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import GameItems from "./GameItems";
 import LoadingPage from './LoadingPage';
+import Footer from "./Footer";
 
 const ALL_GAMES = gql`
     {
@@ -40,6 +41,7 @@ class Home extends React.Component {
                     <GameItems key={idx} index={idx} single={single} isHome />
                   ))}
                 </div>
+                <Footer />
               </Fragment>
             );
           }}
