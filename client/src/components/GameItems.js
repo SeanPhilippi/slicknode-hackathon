@@ -1,17 +1,17 @@
 import React from "react";
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import GameLightbox from './GameLightbox';
 
 const ADD_GAME_TO_USER = gql`
     mutation AddGameToCollection($input: Gamecatalog_updateGameInput!) {
-        Gamecatalog_updateGame(input: $input) {
-            node {
-                id
-                title
-            }
+      Gamecatalog_updateGame(input: $input) {
+        node {
+          id
+          title
         }
+      }
     }
 `;
 
@@ -22,22 +22,22 @@ class GameItems extends React.Component {
     dropdownOpen: false
   };
 
-  toggleHidden = () => {
+  toggleDesc = () => {
     this.setState({
       isHidden: !this.state.isHidden
     });
   };
 
-  toggleBtn = () => {
+  toggleBtnDropdown = () => {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
 
   render() {
-    const { id, title, releaseDate, description, imgUrl, company } = this.props.single.node;
+    const { id, title, releaseDate, description, imgUrl } = this.props.single.node;
     const { isHidden } = this.state;
     const { isHome } = this.props;
 
-    const desc = <h4>{description}</h4>;
+    const desc = <p className="text-muted mt-3">{description}</p>;
 
     // console.log(this.props.single);
 
@@ -47,25 +47,25 @@ class GameItems extends React.Component {
           <div className="card card-body mb-3">
             <div className="row">
               <div className="col-md-10">
-                <h1>
+                <h1 className="ps-blue">
                   {this.props.index + 1}: {title}
                 </h1>
-                <h3>Release Date: {releaseDate} </h3>
+                <h3 className="ps-blue-light">Release Date: {releaseDate} </h3>
                 {!isHidden && desc}
               </div>
               <div className="col-md-2 text-center">
                 { isHome ?
                   (
                     <span>
-                      <button onClick={this.toggleHidden} className="btn btn-secondary text-dark mb-1">
+                      <Button color="" className="desc-btn mb-1" onClick={this.toggleDesc}>
                         Game Details
-                      </button>
-                      <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggleBtn}>
-                        <DropdownToggle color="primary" caret>
+                      </Button>
+                      <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggleBtnDropdown}>
+                        <DropdownToggle color="" className='add-game-btn' caret>
                           Add to Collection
                         </DropdownToggle>
                         <DropdownMenu>
-                          <DropdownItem header>To User:</DropdownItem>
+                          <DropdownItem header>Add to User:</DropdownItem>
                           <DropdownItem onClick={() => {
                             addGameToUser({
                               variables: {
@@ -111,9 +111,9 @@ class GameItems extends React.Component {
                     </span>
                   ) :
                     (
-                      <button onClick={this.toggleHidden} className="btn btn-secondary text-dark">
+                      <Button color="" className="desc-btn mb-1" onClick={this.toggleDesc}>
                         Game Details
-                      </button>
+                      </Button>
                     )
                 }
                 <GameLightbox img={imgUrl}/>

@@ -1,21 +1,10 @@
 import React, { Component, Fragment } from "react";
+import { withRouter } from 'react-router-dom';
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import GameItems from "./GameItems";
-import { withRouter } from 'react-router-dom';
-import gif from '../playstation.gif';
+import LoadingPage from './LoadingPage';
 
-const divFlex = {
-  display: 'flex',
-  justifyContent: 'center',
-  backgroundColor: '#145CB2',
-  padding: '0',
-  margin: '0'
-}
-
-const loadGif = {
-  width: '60%',
-}
 
 export class Games extends Component {
   render() {
@@ -25,48 +14,46 @@ export class Games extends Component {
     id = id[id.length-1];
     console.log(id);
 
-    const GAME_QUERY = gql`
-        {
-            getUserById(id:"${id}") {
-                firstName
-                lastName
-                Gamecatalog_games {
-                    totalCount
-                    edges {
-                        node {
-                            id
-                            title
-                            description
-                            releaseDate
-                            company
-                            imgUrl
-                        }
-                    }
-                }
+    const QUERY_USER_GAMES = gql`
+      {
+        user: getUserById(id:"${id}") {
+          firstName
+          lastName
+          gameList: Gamecatalog_games {
+            totalCount
+            games: edges {
+              node {
+                id
+                title
+                description
+                releaseDate
+                company
+                imgUrl
+              }
             }
+          }
         }
+      }
     `;
-
-
 
     return (
       <Fragment>
-        <Query query={GAME_QUERY}>
+        <Query query={QUERY_USER_GAMES}>
           {({ loading, error, data }) => {
-            if (loading) return (
-              <div style={divFlex}>
-                <img src={gif} alt=""/>
-                {/* <h4 className="text-center"> Loading... </h4> */}
-              </div>
-            );
+            if (loading) return <LoadingPage />;
+
             if (error) console.log(error);
+
             console.log(data);
+
             return (
               <Fragment>
-                <h1 className="display-4 text-center mb-3 my-3"> {data.getUserById.firstName+' '+data.getUserById.lastName}'s Games </h1>
-                {data.getUserById.Gamecatalog_games.edges.map((single, idx) => (
-                  <GameItems key={idx} index={idx} single={single} />
-                ))}
+                <div className="container mt-3">
+                  <h1 className="display-4 text-center mb-4 my-3 ps-blue"> {data.user.firstName+' '+data.user.lastName}'s Games </h1>
+                  {data.user.gameList.games.map((single, idx) => (
+                    <GameItems key={idx} index={idx} single={single} />
+                  ))}
+                </div>
               </Fragment>
             );
           }}

@@ -9,6 +9,7 @@ import {
   Route
 } from 'react-router-dom'
 import NavBar from "./components/NavBar";
+import LoadingTest from "./components/LoadingPage";
 
 // const client = new ApolloClient({
 //   uri: "http://localhost:5000/graphql"
@@ -23,14 +24,15 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <Router>
-          <div>
+          <div style={{ height: '100%' }}>
             <NavBar />
-            <div className="container">
+            {/*<div className="container">*/}
 
               <Route exact path="/" component={Home} />
               <Route path="/games" component={Games} />
+              <Route path="/loading" component={LoadingTest} />
 
-            </div>
+            {/*</div>*/}
           </div>
         </Router>
       </ApolloProvider>

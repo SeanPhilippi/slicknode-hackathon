@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../logo.png';
+import PS3Logo from '../logo.png';
 
 import {
   Collapse,
@@ -7,7 +7,6 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
@@ -16,23 +15,13 @@ import {
 import {Link} from 'react-router-dom';
 
 export default class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    isOpen: false
+  };
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
-  style = {
-    width: '15%',
-  }
+  toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
   users = [
     {
@@ -57,31 +46,28 @@ export default class NavBar extends React.Component {
     }
   ];
 
-  options = this.users.map(user => {
+  // creates an array of users for navbar dropdown menu
+  options = this.users.map((user, idx) => {
     return (
-      <DropdownItem>
+      <DropdownItem key={idx}>
         <NavLink tag={Link} to={'/games/' + user.id}>{user.name}</NavLink>
       </DropdownItem>            
     )
-  })
+  });
 
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/" className="mx-auto"><img style={this.style} src={logo} alt="logo"/></NavbarBrand>
+        <Navbar color="light" light expand="md" style={{ height: '100px' }}>
+          <NavbarBrand href="/" className="mx-auto" style={{ width: '200px' }}>
+            <img src={PS3Logo} alt="logo" style={{ width: '80%' }}/>
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                {/* <NavLink href="/components/">Components</NavLink> */}
-              </NavItem>
-              <NavItem>
-                {/* <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink> */}
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Users
+                  User Collections
                 </DropdownToggle>
                 <DropdownMenu right>
                   {this.options}
