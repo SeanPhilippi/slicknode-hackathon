@@ -5,18 +5,6 @@ import GameItems from "./GameItems";
 import { withRouter } from 'react-router-dom';
 import gif from '../playstation.gif';
 
-// const GAME_QUERY = gql`
-//   {
-//     collection {
-//       id
-//       title
-//       date
-//       description
-//       url
-//     }
-//   }
-// `;
-
 const divFlex = {
   display: 'flex',
   justifyContent: 'center',
@@ -31,6 +19,7 @@ const loadGif = {
 
 export class Games extends Component {
   render() {
+    // get user id from end of URL
     const { pathname } = this.props.location;
     let id = pathname.split('/');
     id = id[id.length-1];
@@ -66,7 +55,7 @@ export class Games extends Component {
           {({ loading, error, data }) => {
             if (loading) return (
               <div style={divFlex}>
-                <img style={loadGif} src={gif} alt=""/>
+                <img src={gif} alt=""/>
                 {/* <h4 className="text-center"> Loading... </h4> */}
               </div>
             );
