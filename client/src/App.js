@@ -26,13 +26,10 @@ class App extends Component {
         <Router>
           <div style={{ height: '100%' }}>
             <NavBar />
-            {/*<div className="container">*/}
 
-              <Route exact path="/" component={Home} />
-              <Route path="/games" component={Games} />
-              <Route path="/loading" component={LoadingTest} />
+            <Route exact path="/" component={Home} />
+            <Route path="/games" component={Games} />
 
-            {/*</div>*/}
           </div>
         </Router>
       </ApolloProvider>

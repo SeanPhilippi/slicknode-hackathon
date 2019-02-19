@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import GameItems from "./GameItems";
@@ -13,6 +13,9 @@ export class Games extends Component {
     let id = pathname.split('/');
     id = id[id.length-1];
     console.log(id);
+
+    // redirect to homepage if URL is just /games
+    if (id === 'games' || id === '') return <Redirect to="/" />;
 
     const QUERY_USER_GAMES = gql`
       {
