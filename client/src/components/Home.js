@@ -1,24 +1,25 @@
-import React, {Fragment} from 'react';
-// import PropTypes from 'prop-types';
-import gql from "graphql-tag";
+import React, { Fragment } from "react";
 import { Query } from "react-apollo";
+import gql from "graphql-tag";
 import GameItems from "./GameItems";
+import LoadingPage from "./LoadingPage";
+import Footer from "./Footer";
 
 const ALL_GAMES = gql`
-    {
-        games: Gamecatalog_listGame(first: 100) {
-            edges {
-                node {
-                    id
-                    title
-                    description
-                    releaseDate
-                    company
-                    imgUrl
-                }
-            }
+  {
+    gameList: Gamecatalog_listGame(first: 100) {
+      games: edges {
+        node {
+          id
+          title
+          description
+          releaseDate
+          company
+          imgUrl
         }
+      }
     }
+  }
 `;
 
 class Home extends React.Component {
@@ -27,15 +28,23 @@ class Home extends React.Component {
       <div>
         <Query query={ALL_GAMES}>
           {({ loading, error, data }) => {
-            if (loading) return <h4>Loading...</h4>;
+            if (loading) return <LoadingPage />;
+
             if (error) console.log(error);
             console.log(data);
+
             return (
               <Fragment>
-                <h1 className='text-center mb-3'>ALL PS3 GAMES</h1>
-                {data.games.edges.map((single, idx) => (
-                  <GameItems key={idx} index={idx} single={single} isHome />
-                ))}
+                <div className="container mt-3">
+                  <h1 className="display-4 text-center mb-4 ps-blue">
+                    All PS3 Games
+                  </h1>
+                  {data &&
+                    data.gameList.games.map((single, idx) => (
+                      <GameItems key={idx} index={idx} single={single} isHome />
+                    ))}
+                </div>
+                <Footer />
               </Fragment>
             );
           }}

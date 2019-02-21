@@ -1,83 +1,90 @@
 import React, { Component, Fragment } from "react";
-import gql from "graphql-tag";
+import { withRouter, Redirect } from "react-router-dom";
 import { Query } from "react-apollo";
+import { Alert } from "reactstrap";
+import gql from "graphql-tag";
 import GameItems from "./GameItems";
-import { withRouter } from 'react-router-dom';
-import gif from '../playstation.gif';
-
-// const GAME_QUERY = gql`
-//   {
-//     collection {
-//       id
-//       title
-//       date
-//       description
-//       url
-//     }
-//   }
-// `;
-
-const divFlex = {
-  display: 'flex',
-  justifyContent: 'center',
-  backgroundColor: '#145CB2',
-  padding: '0',
-  margin: '0'
-}
-
-const loadGif = {
-  width: '60%',
-}
+import LoadingPage from "./LoadingPage";
+import Footer from "./Footer";
 
 export class Games extends Component {
+  state = { isAlertOpen: true };
+
+  closeAlert = () => {
+    this.setState({ isAlertOpen: false });
+  };
+
   render() {
-    const { pathname } = this.props.location;
-    let id = pathname.split('/');
-    id = id[id.length-1];
+    // get user id from end of URL
+    const { pathname, state } = this.props.location;
+    let id = pathname.split("/");
+    id = id[id.length - 1];
     console.log(id);
 
-    const GAME_QUERY = gql`
-        {
-            getUserById(id:"${id}") {
-                firstName
-                lastName
-                Gamecatalog_games {
-                    totalCount
-                    edges {
-                        node {
-                            id
-                            title
-                            description
-                            releaseDate
-                            company
-                            imgUrl
-                        }
-                    }
-                }
+    // redirect to homepage if URL is just /games
+    if (id === "games" || id === "") return <Redirect to="/" />;
+
+    // check if a game was added to the collection
+    // if so, display a green alert w/ game title added
+    let newGameAlert = null;
+    if (state && state.gameAdded) {
+      console.log(state);
+      newGameAlert = (
+        <Alert
+          color="success"
+          isOpen={this.state.isAlertOpen}
+          toggle={this.closeAlert}
+        >
+          You added <b>{state.game}</b> to your collection!
+        </Alert>
+      );
+    }
+
+    const QUERY_USER_GAMES = gql`
+      {
+        user: getUserById(id: "${id}") {
+          firstName
+          lastName
+          gameList: Gamecatalog_games(first: 100) {
+            totalCount
+            games: edges {
+              node {
+                id
+                title
+                description
+                releaseDate
+                company
+                imgUrl
+              }
             }
+          }
         }
+      }
     `;
-
-
 
     return (
       <Fragment>
-        <Query query={GAME_QUERY}>
+        <Query query={QUERY_USER_GAMES}>
           {({ loading, error, data }) => {
-            if (loading) return (
-              <div style={divFlex}>
-                <img style={loadGif} src={gif} alt=""/>
-                {/* <h4 className="text-center"> Loading... </h4> */}
-              </div>
-            );
+            if (loading) return <LoadingPage />;
+
             if (error) console.log(error);
+
             console.log(data);
+
             return (
               <Fragment>
-                <h1 className="display-4 text-center mb-3 my-3"> {data.getUserById.firstName+' '+data.getUserById.lastName}'s Games </h1>
-                {data.getUserById.Gamecatalog_games.edges.map((single, idx) => (
-                  <GameItems key={idx} index={idx} single={single} />
-                ))}
+                <div className="container mt-3">
+                  <h1 className="display-4 text-center mb-4 my-3 ps-blue">
+                    {data && data.user.firstName + " " + data.user.lastName}'s Games
+                  </h1>
+                  {newGameAlert}
+                  {data &&
+                    data.user.gameList.games.map((single, idx) => (
+                      <GameItems key={idx} index={idx} single={single} />
+                    ))}
+                </div>
+                <Footer />
               </Fragment>
             );
           }}

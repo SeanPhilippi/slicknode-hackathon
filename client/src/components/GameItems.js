@@ -1,54 +1,45 @@
 import React from "react";
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { withRouter } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-
-class GameLightbox extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      photoIndex: 0,
-      isOpen: false,
-    };
-  }
-
-  render() {
-    const { isOpen } = this.state;
-    const { img } = this.props;
-    // const { imgUrl } = this.props.single.node;
-
-    return (
-      <div>
-        <img 
-          src={img} 
-          width={'100px'} 
-          style={{ marginTop: 15 }} 
-          type="button" onClick={() => this.setState({ isOpen: true })}
-        />
-        {isOpen && (
-          <Lightbox
-            mainSrc={img}
-            onCloseRequest={() => this.setState({ isOpen: false })}
-          />
-        )}
-      </div>
-    );
-  }
-}
+import GameLightbox from "./GameLightbox";
+import {
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Button
+} from "reactstrap";
 
 const ADD_GAME_TO_USER = gql`
-    mutation AddGameToCollection($input: Gamecatalog_updateGameInput!) {
-        Gamecatalog_updateGame(input: $input) {
-            node {
-                id
-                title
-            }
-        }
+  mutation AddGameToCollection($input: Gamecatalog_updateGameInput!) {
+    Gamecatalog_updateGame(input: $input) {
+      node {
+        id
+        title
+      }
     }
+  }
 `;
+
+const users = [
+  {
+    name: "Will",
+    id: "VXNlcjo0"
+  },
+  {
+    name: "Jake",
+    id: "VXNlcjoz"
+  },
+  {
+    name: "Sean",
+    id: "VXNlcjox"
+  },
+  {
+    name: "Zeke",
+    id: "VXNlcjoy"
+  }
+];
 
 class GameItems extends React.Component {
   state = {
@@ -56,22 +47,26 @@ class GameItems extends React.Component {
     dropdownOpen: false
   };
 
-  toggleHidden = () => {
-    this.setState({
-      isHidden: !this.state.isHidden
-    });
+  toggleDesc = () => {
+    this.setState({ isHidden: !this.state.isHidden });
   };
 
-  toggleBtn = () => {
+  toggleBtnDropdown = () => {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
 
   render() {
-    const { id, title, releaseDate, description, imgUrl, company } = this.props.single.node;
+    const {
+      id,
+      title,
+      releaseDate,
+      description,
+      imgUrl
+    } = this.props.single.node;
     const { isHidden } = this.state;
     const { isHome } = this.props;
 
-    const desc = <h4>{description}</h4>;
+    const desc = <p className="text-muted mt-3">{description}</p>;
 
     // console.log(this.props.single);
 
@@ -80,77 +75,125 @@ class GameItems extends React.Component {
         {(addGameToUser, { data }) => (
           <div className="card card-body mb-3">
             <div className="row">
-              <div className="col-md-10">
-                <h1>
+              <div className="col-md-8 col-lg-9">
+                <h1 className="ps-blue">
                   {this.props.index + 1}: {title}
                 </h1>
-                <h3>Release Date: {releaseDate} </h3>
+                <h3 className="ps-blue-light">Release Date: {releaseDate} </h3>
                 {!isHidden && desc}
               </div>
-              <div className="col-md-2 text-center">
-                { isHome ?
-                  (
-                    <span>
-                      <button onClick={this.toggleHidden} className="btn btn-secondary text-dark mb-1">
-                        Game Details
-                      </button>
-                      <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggleBtn}>
-                        <DropdownToggle color="primary" caret>
-                          Add to Collection
-                        </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem header>To User:</DropdownItem>
-                          <DropdownItem onClick={() => {
-                            addGameToUser({
+              <div className="col-md-4 col-lg-3 text-center">
+                {isHome ? (
+                  <div>
+                    <Button
+                      color=""
+                      className="desc-btn mb-1"
+                      onClick={this.toggleDesc}
+                    >
+                      Game Details
+                    </Button>
+                    <ButtonDropdown
+                      isOpen={this.state.dropdownOpen}
+                      toggle={this.toggleBtnDropdown}
+                    >
+                      <DropdownToggle color="" className="add-game-btn" caret>
+                        Add to Collection
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem header>Add to User:</DropdownItem>
+                        {/* Chief */}
+                        <DropdownItem
+                          onClick={async () => {
+                            await addGameToUser({
                               variables: {
                                 input: {
                                   id: id,
-                                  user: 'VXNlcjox'
+                                  user: users[0].id
                                 }
                               }
                             });
-                          }}>Sean</DropdownItem>
-                          <DropdownItem onClick={() => {
-                            addGameToUser({
+
+                            this.props.history.push({
+                              pathname: `/games/${users[0].id}`,
+                              state: { gameAdded: true, game: title }
+                            });
+                          }}
+                        >
+                          {users[0].name}
+                        </DropdownItem>
+                        {/* Jake */}
+                        <DropdownItem
+                          onClick={async () => {
+                            await addGameToUser({
                               variables: {
                                 input: {
                                   id: id,
-                                  user: 'VXNlcjoy'
+                                  user: users[1].id // seans id
                                 }
                               }
                             });
-                          }}>Zeke</DropdownItem>
-                          <DropdownItem onClick={() => {
-                            addGameToUser({
+
+                            this.props.history.push({
+                              pathname: `/games/${users[1].id}`,
+                              state: { gameAdded: true, game: title }
+                            });
+                          }}
+                        >
+                          {users[1].name}
+                        </DropdownItem>
+                        {/* Sean */}
+                        <DropdownItem
+                          onClick={async () => {
+                            await addGameToUser({
                               variables: {
                                 input: {
                                   id: id,
-                                  user: 'VXNlcjoz'
+                                  user: users[2].id
                                 }
                               }
                             });
-                          }}>Jake</DropdownItem>
-                          <DropdownItem onClick={() => {
-                            addGameToUser({
+
+                            this.props.history.push({
+                              pathname: `/games/${users[2].id}`,
+                              state: { gameAdded: true, game: title }
+                            });
+                          }}
+                        >
+                          {users[2].name}
+                        </DropdownItem>
+                        {/* Zeke */}
+                        <DropdownItem
+                          onClick={async () => {
+                            await addGameToUser({
                               variables: {
                                 input: {
                                   id: id,
-                                  user: 'VXNlcjoz'
+                                  user: users[3].id
                                 }
                               }
                             });
-                          }}>Will</DropdownItem>
-                        </DropdownMenu>
-                      </ButtonDropdown>
-                    </span>
-                  ) :
-                    (
-                      <button onClick={this.toggleHidden} className="btn btn-secondary text-dark">
-                        Game Details
-                      </button>
-                    )
-                }
-                <GameLightbox img={imgUrl}/>
+
+                            this.props.history.push({
+                              pathname: `/games/${users[3].id}`,
+                              state: { gameAdded: true, game: title }
+                            });
+                          }}
+                        >
+                          {users[3].name}
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </ButtonDropdown>
+                  </div>
+                ) : (
+                  <Button
+                    color=""
+                    className="desc-btn mb-1"
+                    onClick={this.toggleDesc}
+                  >
+                    Game Details
+                  </Button>
+                )}
+                <GameLightbox img={imgUrl} />
               </div>
             </div>
           </div>
@@ -160,4 +203,4 @@ class GameItems extends React.Component {
   }
 }
 
-export default GameItems;
+export default withRouter(GameItems);

@@ -1,91 +1,77 @@
-import React from 'react';
-import logo from '../logo.png';
-
+import React from "react";
+import { Link } from "react-router-dom";
+import PS3Logo from "../assets/logo.png";
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
-import {Link} from 'react-router-dom';
+  DropdownItem
+} from "reactstrap";
 
-export default class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
+class NavBar extends React.Component {
+  state = {
+    isOpen: false
+  };
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
-  style = {
-    width: '15%',
-  }
+  toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
   users = [
     {
-      name: 'Sean',
-      email: 'sean.philippi@gmail.com',
-      id: 'VXNlcjox'
+      name: "Will",
+      email: "chiefxcruz@gmail.com",
+      id: "VXNlcjo0"
     },
     {
-      name: 'Zeke',
-      email: 'zgutier4@gmail.com',
-      id: 'VXNlcjoy'
+      name: "Jake",
+      email: "jake.waltrip@gmail.com",
+      id: "VXNlcjoz"
     },
     {
-      name: 'Jake',
-      email: 'jake.waltrip@gmail.com',
-      id: 'VXNlcjoz'
+      name: "Sean",
+      email: "sean.philippi@gmail.com",
+      id: "VXNlcjox"
     },
     {
-      name: 'Will',
-      email: 'chiefxcruz@gmail.com',
-      id: 'VXNlcjo0'
+      name: "Zeke",
+      email: "zgutier4@gmail.com",
+      id: "VXNlcjoy"
     }
   ];
 
-  options = this.users.map(user => {
+  // creates an array of users for navbar dropdown menu
+  options = this.users.map((user, idx) => {
     return (
-      <DropdownItem>
-        <NavLink tag={Link} to={'/games/' + user.id}>{user.name}</NavLink>
-      </DropdownItem>            
-    )
-  })
+      <DropdownItem key={idx}>
+        <NavLink tag={Link} to={"/games/" + user.id}>
+          {user.name}
+        </NavLink>
+      </DropdownItem>
+    );
+  });
 
   render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/" className="mx-auto"><img style={this.style} src={logo} alt="logo"/></NavbarBrand>
+          <NavbarBrand href="/" className="mr-auto" style={{ width: "200px" }}>
+            <img src={PS3Logo} alt="logo" style={{ width: "80%" }} />
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                {/* <NavLink href="/components/">Components</NavLink> */}
-              </NavItem>
-              <NavItem>
-                {/* <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink> */}
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Users
+                  User Collections
                 </DropdownToggle>
-                <DropdownMenu right>
-                  {this.options}
-                </DropdownMenu>
+                <DropdownMenu right>{this.options}</DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
           </Collapse>
@@ -94,3 +80,5 @@ export default class NavBar extends React.Component {
     );
   }
 }
+
+export default NavBar;

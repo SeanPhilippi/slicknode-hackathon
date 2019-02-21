@@ -12,21 +12,11 @@ const {
 const Ps3 = new GraphQLObjectType({
   name: "Ps3",
   fields: () => ({
-    id: {
-      type: GraphQLInt
-    },
-    title: {
-      type: GraphQLString
-    },
-    date: {
-      type: GraphQLString
-    },
-    description: {
-      type: GraphQLString
-    },
-    url: {
-      type: GraphQLString
-    }
+    id: { type: GraphQLInt },
+    title: { type: GraphQLString },
+    date: { type: GraphQLString },
+    description: { type: GraphQLString },
+    url: { type: GraphQLString }
   })
 });
 
@@ -43,9 +33,7 @@ const RootQuery = new GraphQLObjectType({
     single: {
       type: Ps3,
       args: {
-        id: {
-          type: GraphQLInt
-        }
+        id: { type: GraphQLInt }
       },
       resolve(parent, args) {
         return axios

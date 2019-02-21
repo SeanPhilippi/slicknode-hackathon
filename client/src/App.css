@@ -1,0 +1,50 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.ps-blue {
+  color: rgb(43, 127, 226);
+}
+
+.ps-blue-light {
+  color: rgba(43, 127, 226, 0.75);
+}
+
+.add-game-btn {
+  background-color: rgb(43, 127, 226) !important;
+  color: white !important;
+  margin: 0 7px 0 7px;
+}
+
+.add-game-btn:hover,
+.add-game-btn:focus {
+  background-color: rgb(27, 109, 206) !important;
+}
+
+.desc-btn {
+  background-color: rgb(109, 117, 127) !important;
+  color: white !important;
+  margin: 0 7px 0 7px;
+}
+
+.desc-btn:hover {
+  background-color: rgb(89, 101, 115) !important;
+}
+
+.game-desc {
+}
+
+.footer {
+  font-weight: bold;
+}
+
+.footer > a:hover {
+  text-decoration: none;
+}
