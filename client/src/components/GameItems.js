@@ -39,7 +39,6 @@ class GameLightbox extends React.Component {
   }
 }
 
-
 const ADD_GAME_TO_USER = gql`
     mutation AddGameToCollection($input: Gamecatalog_updateGameInput!) {
         Gamecatalog_updateGame(input: $input) {
