@@ -7,8 +7,7 @@ const Footer = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      {" "}
-      William Cruz{" "}
+      William Cruz
     </a>
   );
   const jake = (
@@ -17,8 +16,7 @@ const Footer = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      {" "}
-      Jake Waltrip{" "}
+      Jake Waltrip
     </a>
   );
   const sean = (
@@ -27,8 +25,7 @@ const Footer = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      {" "}
-      Sean Philipi{" "}
+      Sean Philipi
     </a>
   );
   const zeke = (
@@ -37,8 +34,7 @@ const Footer = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      {" "}
-      Zeke Gutierez{" "}
+      Zeke Gutierez
     </a>
   );
 
@@ -46,9 +42,9 @@ const Footer = () => {
     <div className="container mt-5 mb-4">
       <hr />
       <div className="text-muted text-center footer">
-        Created by {chief}, {jake}, {sean}, {zeke} <i>for the </i> ACA Slicknode
-        Hackathon - Feb 2019{" "}
-      </div>{" "}
+        Created by:&nbsp; {chief}&nbsp; • &nbsp;{jake}&nbsp; • &nbsp;{sean}&nbsp; • &nbsp;{zeke} &nbsp;
+        <i>for the </i> <span className="text-dark">ACA Slicknode Hackathon - Feb 2019</span>
+      </div>
     </div>
   );
 };

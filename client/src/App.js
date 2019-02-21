@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom'
 import NavBar from "./components/NavBar";
 import Games from "./components/Games";
 import Home from "./components/Home";
@@ -23,12 +20,11 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <Router>
-          <div style={{ height: '100%' }}>
+          <div style={{ height: "100%" }}>
             <NavBar />
 
             <Route exact path="/" component={Home} />
             <Route path="/games" component={Games} />
-
           </div>
         </Router>
       </ApolloProvider>
