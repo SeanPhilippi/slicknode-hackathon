@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -16,8 +18,8 @@ html, body, #root {
 }
 
 .add-game-btn {
-  background-color: rgb(43, 127, 226)!important;
-  color: white!important;
+  background-color: rgb(43, 127, 226) !important;
+  color: white !important;
   margin: 0 7px 0 7px;
 }
 
@@ -27,17 +29,20 @@ html, body, #root {
 }
 
 .desc-btn {
-  background-color: rgb(109, 117, 127)!important;
-  color: white!important;
+  background-color: rgb(109, 117, 127) !important;
+  color: white !important;
   margin: 0 7px 0 7px;
 }
 
 .desc-btn:hover {
-  background-color: rgb(89, 101, 115)!important;
+  background-color: rgb(89, 101, 115) !important;
 }
 
 .game-desc {
+}
 
+.footer {
+  font-weight: bold;
 }
 
 .footer > a:hover {

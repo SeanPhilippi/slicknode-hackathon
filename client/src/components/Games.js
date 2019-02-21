@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { withRouter, Redirect } from 'react-router-dom';
-import gql from "graphql-tag";
+import { withRouter, Redirect } from "react-router-dom";
 import { Query } from "react-apollo";
 import { Alert } from "reactstrap";
+import gql from "graphql-tag";
 import GameItems from "./GameItems";
-import LoadingPage from './LoadingPage';
+import LoadingPage from "./LoadingPage";
 import Footer from "./Footer";
 
 export class Games extends Component {
@@ -17,12 +17,12 @@ export class Games extends Component {
   render() {
     // get user id from end of URL
     const { pathname, state } = this.props.location;
-    let id = pathname.split('/');
-    id = id[id.length-1];
+    let id = pathname.split("/");
+    id = id[id.length - 1];
     console.log(id);
 
     // redirect to homepage if URL is just /games
-    if (id === 'games' || id === '') return <Redirect to="/" />;
+    if (id === "games" || id === "") return <Redirect to="/" />;
 
     // check if a game was added to the collection
     // if so, display a green alert w/ game title added
@@ -30,7 +30,11 @@ export class Games extends Component {
     if (state && state.gameAdded) {
       console.log(state);
       newGameAlert = (
-        <Alert color="success" isOpen={this.state.isAlertOpen} toggle={this.closeAlert}>
+        <Alert
+          color="success"
+          isOpen={this.state.isAlertOpen}
+          toggle={this.closeAlert}
+        >
           You added <b>{state.game}</b> to your collection!
         </Alert>
       );
@@ -38,7 +42,7 @@ export class Games extends Component {
 
     const QUERY_USER_GAMES = gql`
       {
-        user: getUserById(id:"${id}") {
+        user: getUserById(id: "${id}") {
           firstName
           lastName
           gameList: Gamecatalog_games(first: 100) {
@@ -71,11 +75,14 @@ export class Games extends Component {
             return (
               <Fragment>
                 <div className="container mt-3">
-                  <h1 className="display-4 text-center mb-4 my-3 ps-blue"> {data.user.firstName+' '+data.user.lastName}'s Games </h1>
+                  <h1 className="display-4 text-center mb-4 my-3 ps-blue">
+                    {data && data.user.firstName + " " + data.user.lastName}'s Games
+                  </h1>
                   {newGameAlert}
-                  {data.user.gameList.games.map((single, idx) => (
-                    <GameItems key={idx} index={idx} single={single} />
-                  ))}
+                  {data &&
+                    data.user.gameList.games.map((single, idx) => (
+                      <GameItems key={idx} index={idx} single={single} />
+                    ))}
                 </div>
                 <Footer />
               </Fragment>

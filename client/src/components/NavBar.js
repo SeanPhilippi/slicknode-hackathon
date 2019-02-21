@@ -1,6 +1,6 @@
-import React from 'react';
-import PS3Logo from '../logo.png';
-
+import React from "react";
+import { Link } from "react-router-dom";
+import PS3Logo from "../assets/logo.png";
 import {
   Collapse,
   Navbar,
@@ -11,10 +11,10 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
-import {Link} from 'react-router-dom';
+  DropdownItem
+} from "reactstrap";
 
-export default class NavBar extends React.Component {
+class NavBar extends React.Component {
   state = {
     isOpen: false
   };
@@ -25,24 +25,24 @@ export default class NavBar extends React.Component {
 
   users = [
     {
-      name: 'Will',
-      email: 'chiefxcruz@gmail.com',
-      id: 'VXNlcjo0'
+      name: "Will",
+      email: "chiefxcruz@gmail.com",
+      id: "VXNlcjo0"
     },
     {
-      name: 'Jake',
-      email: 'jake.waltrip@gmail.com',
-      id: 'VXNlcjoz'
+      name: "Jake",
+      email: "jake.waltrip@gmail.com",
+      id: "VXNlcjoz"
     },
     {
-      name: 'Sean',
-      email: 'sean.philippi@gmail.com',
-      id: 'VXNlcjox'
+      name: "Sean",
+      email: "sean.philippi@gmail.com",
+      id: "VXNlcjox"
     },
     {
-      name: 'Zeke',
-      email: 'zgutier4@gmail.com',
-      id: 'VXNlcjoy'
+      name: "Zeke",
+      email: "zgutier4@gmail.com",
+      id: "VXNlcjoy"
     }
   ];
 
@@ -50,17 +50,19 @@ export default class NavBar extends React.Component {
   options = this.users.map((user, idx) => {
     return (
       <DropdownItem key={idx}>
-        <NavLink tag={Link} to={'/games/' + user.id}>{user.name}</NavLink>
-      </DropdownItem>            
-    )
+        <NavLink tag={Link} to={"/games/" + user.id}>
+          {user.name}
+        </NavLink>
+      </DropdownItem>
+    );
   });
 
   render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/" className="mr-auto" style={{ width: '200px' }}>
-            <img src={PS3Logo} alt="logo" style={{ width: '80%' }}/>
+          <NavbarBrand href="/" className="mr-auto" style={{ width: "200px" }}>
+            <img src={PS3Logo} alt="logo" style={{ width: "80%" }} />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -69,9 +71,7 @@ export default class NavBar extends React.Component {
                 <DropdownToggle nav caret>
                   User Collections
                 </DropdownToggle>
-                <DropdownMenu right>
-                  {this.options}
-                </DropdownMenu>
+                <DropdownMenu right>{this.options}</DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
           </Collapse>
@@ -80,3 +80,5 @@ export default class NavBar extends React.Component {
     );
   }
 }
+
+export default NavBar;
